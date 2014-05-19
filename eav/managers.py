@@ -184,6 +184,9 @@ class EntityManager(models.Manager):
         Reproduces the behavior of get_or_create, eav friendly.
         '''
         try:
+            defaults = kwargs.pop('defaults', {})
             return self.get(**kwargs), False
         except self.model.DoesNotExist:
+            defaults = kwargs.pop('defaults', {})
+            kwargs.update(**defaults)
             return self.create(**kwargs), True
