@@ -176,8 +176,7 @@ class Attribute(models.Model):
     name = models.CharField(_(u"name"), max_length=100,
                             help_text=_(u"User-friendly attribute name"))
 
-    site = models.ForeignKey(Site, verbose_name=_(u"site"),
-                             default=Site.objects.get_current())
+    site = models.ForeignKey(Site, verbose_name=_(u"site"))
 
     slug = EavSlugField(_(u"slug"), max_length=50, db_index=True,
                           help_text=_(u"Short unique attribute label"))
