@@ -29,7 +29,7 @@ Classes
 
 from django.db.utils import DatabaseError
 from django.db.models.signals import pre_init, post_init, pre_save, post_save
-from django.contrib.contenttypes import generic
+from django.contrib.contenttypes.fields import GenericRelation
 
 from .managers import EntityManager
 from .models import Entity, Attribute, Value
@@ -162,8 +162,7 @@ class Registry(object):
                    self.model_cls.__name__
 
         gr_name = self.config_cls.generic_relation_attr.lower()
-        generic_relation = \
-                     generic.GenericRelation(Value,
+        generic_relation = GenericRelation(Value,
                                              object_id_field='entity_id',
                                              content_type_field='entity_ct',
                                              related_query_name=rel_name)
