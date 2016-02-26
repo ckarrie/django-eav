@@ -474,6 +474,7 @@ class Entity(object):
         Raise ``ValidationError`` if they can't be.
         '''
         values_dict = self.get_values_dict()
+        none_values = [None, [],]
 
         for attribute in self.get_all_attributes():
             value = None
@@ -481,6 +482,9 @@ class Entity(object):
                 value = self._getattr(attribute.slug)
             else:
                 value = values_dict.get(attribute.slug, None)
+            
+            if value in none_values:
+                value = None
             
             if value is None:
                 if attribute.required:
