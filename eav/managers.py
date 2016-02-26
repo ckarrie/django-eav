@@ -111,6 +111,7 @@ def expand_eav_filter(model_cls, key, value):
 
     try:
         field = model_cls._meta.get_field(fields[0])
+        direct = not field.auto_created or field.concrete
     except models.FieldDoesNotExist:
         return key, value
 
