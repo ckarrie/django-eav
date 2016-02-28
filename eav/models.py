@@ -436,12 +436,12 @@ class Entity(object):
                 return None
         return getattr(super(Entity, self), name)
 
-    def get_all_attributes(self):
+    def get_all_attributes(self, **kwargs):
         '''
         Return a query set of all :class:`Attribute` objects that can be set
         for this entity.
         '''
-        return self.model._eav_config_cls.get_attributes()
+        return self.model._eav_config_cls.get_attributes(**kwargs)
 
     def _hasattr(self, attribute_slug):
         '''
