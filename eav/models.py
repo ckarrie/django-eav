@@ -176,7 +176,7 @@ class Attribute(models.Model):
     name = models.CharField(_(u"name"), max_length=100,
                             help_text=_(u"User-friendly attribute name"))
 
-    site = models.ForeignKey(Site, verbose_name=_(u"site"))
+    site = models.ForeignKey(Site, verbose_name=_(u"site"), on_delete=models.CASCADE)
 
     slug = EavSlugField(_(u"slug"), max_length=50, db_index=True,
                           help_text=_(u"Short unique attribute label"))
@@ -186,7 +186,7 @@ class Attribute(models.Model):
                                      help_text=_(u"Short description"))
 
     enum_group = models.ForeignKey(EnumGroup, verbose_name=_(u"choice group"),
-                                   blank=True, null=True)
+                                   blank=True, null=True, on_delete=models.CASCADE)
 
     type = models.CharField(_(u"type"), max_length=20, blank=True, null=True)
 
@@ -334,7 +334,7 @@ class Value(models.Model):
     <Value: crazy_dev_user - Favorite Drink: "red bull">
     '''
 
-    entity_ct = models.ForeignKey(ContentType, related_name='value_entities')
+    entity_ct = models.ForeignKey(ContentType, related_name='value_entities', on_delete=models.CASCADE)
     entity_id = models.IntegerField()
     entity = GenericForeignKey(ct_field='entity_ct',
                                        fk_field='entity_id')
@@ -345,11 +345,11 @@ class Value(models.Model):
     value_date = models.DateTimeField(blank=True, null=True)
     value_bool = models.NullBooleanField(blank=True, null=True)
     value_enum = models.ForeignKey(EnumValue, blank=True, null=True,
-                                   related_name='eav_values')
+                                   related_name='eav_values', on_delete=models.CASCADE)
 
     generic_value_id = models.IntegerField(blank=True, null=True)
     generic_value_ct = models.ForeignKey(ContentType, blank=True, null=True,
-                                         related_name='value_values')
+                                         related_name='value_values', on_delete=models.CASCADE)
     value_object = GenericForeignKey(ct_field='generic_value_ct',
                                              fk_field='generic_value_id')
 
@@ -357,7 +357,7 @@ class Value(models.Model):
     modified = models.DateTimeField(_(u"modified"), auto_now=True)
 
     attribute = models.ForeignKey(Attribute, db_index=True,
-                                  verbose_name=_(u"attribute"))
+                                  verbose_name=_(u"attribute"), on_delete=models.CASCADE)
 
     def save(self, *args, **kwargs):
         '''
