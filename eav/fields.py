@@ -82,12 +82,12 @@ class EavDatatypeField(models.CharField):
         :class:`~eav.models.Value` objects.
         '''
         super(EavDatatypeField, self).validate(value, instance)
-        from .models import Attribute
+        # from .models import Attribute
         if not instance.pk:
             return
-        if Attribute.objects.get(id=instance.pk).datatype != instance.datatype:
-            raise ValidationError(_(u"You cannot change the datatype of an "
-                                    u"attribute that is already in use."))
+        # if Attribute.objects.get(id=instance.pk).datatype != instance.datatype:
+        #     raise ValidationError(_(u"You cannot change the datatype of an "
+        #                             u"attribute that is already in use."))
 try:
     from south.modelsinspector import add_introspection_rules
 except ImportError:

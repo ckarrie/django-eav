@@ -80,7 +80,7 @@ class EnumValue(models.Model):
     value = models.CharField(_(u"value"), db_index=True,
                              unique=True, max_length=50)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.value
 
     def __str__(self):
@@ -100,7 +100,7 @@ class EnumGroup(models.Model):
 
     enums = models.ManyToManyField(EnumValue, verbose_name=_(u"enum group"))
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def __str__(self):
@@ -316,7 +316,7 @@ class Attribute(models.Model):
             value_obj.value = value
             value_obj.save()
 
-    def __unicode__(self):
+    def __str__(self):
         return u"%s (%s)" % (self.name, self.get_datatype_display())
 
     def __str__(self):
@@ -402,7 +402,7 @@ class Value(models.Model):
 
     value = property(_get_value, _set_value)
 
-    def __unicode__(self):
+    def __str__(self):
         return u"%s - %s: \"%s\"" % (self.entity, self.attribute.name,
                                      self.value)
 
@@ -448,12 +448,12 @@ class Entity(object):
                 return None
         return getattr(super(Entity, self), name)
 
-    def get_all_attributes(self):
+    def get_all_attributes(self, **kwargs):
         '''
         Return a query set of all :class:`Attribute` objects that can be set
         for this entity.
         '''
-        return self.model._eav_config_cls.get_attributes()
+        return self.model._eav_config_cls.get_attributes(**kwargs)
 
     def _hasattr(self, attribute_slug):
         '''
