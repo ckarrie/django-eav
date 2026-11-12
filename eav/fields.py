@@ -33,7 +33,7 @@ Classes
 import re
 
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.core.exceptions import ValidationError
 
 
@@ -67,7 +67,7 @@ class EavSlugField(models.SlugField):
         name = '_'.join(name.split())
 
         # Remove non alphanumeric characters
-        return re.sub('[^\w]', '', name)
+        return re.sub(r'[^\w]', '', name)
 
 
 class EavDatatypeField(models.CharField):
@@ -93,5 +93,5 @@ try:
 except ImportError:
     pass
 else:
-    add_introspection_rules([], ["^eav\.fields\.EavSlugField"])
-    add_introspection_rules([], ["^eav\.fields\.EavDatatypeField"])
+    add_introspection_rules([], [r"^eav\.fields\.EavSlugField"])
+    add_introspection_rules([], [r"^eav\.fields\.EavDatatypeField"])

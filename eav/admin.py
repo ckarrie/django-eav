@@ -26,7 +26,7 @@ from django.contrib.admin.options import (
 from django.contrib.staticfiles.storage import staticfiles_storage as static
 from django.forms.models import BaseInlineFormSet
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from .models import Attribute, Value, EnumValue, EnumGroup
 
